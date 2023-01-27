@@ -2,7 +2,7 @@ import { useEffect ,useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginByLocalCache } from './reducers/userReducer'
 
-import User from './components/User'
+import LoggedUser from './components/LoggedUser'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
@@ -36,7 +36,7 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <Notification />
-      <User />
+      <LoggedUser />
       <Togglable buttonLabel="new blog" ref={blogFormRef}>
         <BlogForm toggleVisibility={() =>  blogFormRef.current.toggleVisibility()} />
       </Togglable>

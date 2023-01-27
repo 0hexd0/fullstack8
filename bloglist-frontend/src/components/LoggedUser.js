@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { logout }  from '../reducers/userReducer'
 
-const User = () => {
+const LoggedUser = () => {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
 
@@ -16,4 +16,4 @@ const User = () => {
   )
 }
 
-export default User
+export default LoggedUser
