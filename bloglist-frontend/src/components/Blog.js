@@ -4,7 +4,7 @@ import { likeBlog,deleteBlog } from '../reducers/blogReducer'
 
 const Blog = ({ blog }) => {
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
+  const loggedUser = useSelector(state => state.login)
 
   const blogStyle = {
     paddingTop: 10,
@@ -19,7 +19,7 @@ const Blog = ({ blog }) => {
   const showWhenVisible = { display: visible ? '' : 'none' }
   const showWhenUserIsCreator = () => {
     return {
-      display: blog.user.username === user.username ? '' : 'none',
+      display: blog.user.username === loggedUser.username ? '' : 'none',
     }
   }
 

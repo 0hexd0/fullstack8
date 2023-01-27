@@ -6,8 +6,8 @@ const login = async credentials => {
   return response.data
 }
 
-const model = {
+const module = {
   login
 }
 
-export default model
+export default module
