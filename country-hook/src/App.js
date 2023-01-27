@@ -18,7 +18,16 @@ const useField = (type) => {
 const useCountry = (name) => {
   const [country, setCountry] = useState(null)
 
-  useEffect(() => {})
+  useEffect(() => {
+    if(!name) {
+      setCountry(null)
+      return
+    }
+    axios.get(`https://restcountries.com/v3.1/name/${name}`).then((response) => {
+      const countries = response.data.filter(country => country.name.common.toLocaleUpperCase().includes(name.toLocaleUpperCase()))
+      setCountry(countries[0]);
+    });
+  }, [name])
 
   return country
 }
