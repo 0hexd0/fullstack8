@@ -25,17 +25,17 @@ const Blog = ({ blog }) => {
 
   return (
     <div className="blog">
-      <div className="title-row">{blog.title} </div>
+      <h2 className="title-row">{blog.title} </h2>
 
       <div className="detail-rows">
-        <div>{blog.url}</div>
+        <a href={blog.url} target="_blank" rel="noreferrer">{blog.url}</a>
         <div>
           likes {blog.likes}
           <button className="like-btn" onClick={() => handleLikeClick(blog)}>
             like
           </button>
         </div>
-        <div>{blog.author}</div>
+        <div>added by {blog.user.name}</div>
         <button
           style={showWhenUserIsCreator(blog)}
           onClick={() => handleRemoveClick(blog)}
