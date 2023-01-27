@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { likeBlog,deleteBlog } from '../reducers/blogReducer'
 
 const Blog = ({ blog }) => {
   const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
 
   const blogStyle = {
     paddingTop: 10,
@@ -18,8 +19,7 @@ const Blog = ({ blog }) => {
   const showWhenVisible = { display: visible ? '' : 'none' }
   const showWhenUserIsCreator = () => {
     return {
-      // display: blog.user.username === user.username ? '' : 'none',
-      display: ''
+      display: blog.user.username === user.username ? '' : 'none',
     }
   }
 
