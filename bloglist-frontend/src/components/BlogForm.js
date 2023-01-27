@@ -2,11 +2,11 @@ import { useDispatch } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
 import { useField } from '../hooks'
 
-const BlogForm = () => {
+const BlogForm = ({ toggleVisibility }) => {
   const dispatch = useDispatch()
   const titleInpute = useField('text')
-  const authorInput = useField('test')
-  const urlInput = useField('test')
+  const authorInput = useField('text')
+  const urlInput = useField('text')
 
   const addBlog = async (event) => {
     event.preventDefault()
@@ -18,6 +18,7 @@ const BlogForm = () => {
     titleInpute.reset()
     authorInput.reset()
     urlInput.reset()
+    toggleVisibility()
   }
 
   return (
