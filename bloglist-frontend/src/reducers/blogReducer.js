@@ -38,7 +38,7 @@ export const createBlog = blog => {
     try {
       const addedBlog = await blogService.create(blog)
       dispatch(appendBlog(addedBlog))
-      dispatch(setNotification(`a new blog ${addedBlog.title}! by  added`, 'success', 5000))
+      dispatch(setNotification(`a new blog ${addedBlog.title}! by ${addedBlog.user.name} added`, 'success', 5000))
     } catch(exception) {
       dispatch(setNotification(exception.response.data.error, 'error', 5000))
     }

@@ -1,30 +1,18 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { likeBlog,deleteBlog } from '../reducers/blogReducer'
+import { likeBlog, deleteBlog } from '../reducers/blogReducer'
 
 const Blog = ({ blog }) => {
   const dispatch = useDispatch()
-  const loggedUser = useSelector(state => state.login)
+  const loggedUser = useSelector((state) => state.login)
 
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5,
+  if (!blog) {
+    return null
   }
 
-  const [visible, setVisible] = useState(false)
-  const hideWhenVisible = { display: visible ? 'none' : '' }
-  const showWhenVisible = { display: visible ? '' : 'none' }
   const showWhenUserIsCreator = () => {
     return {
       display: blog.user.username === loggedUser.username ? '' : 'none',
     }
-  }
-
-  const toggleVisibility = () => {
-    setVisible(!visible)
   }
 
   const handleLikeClick = (blog) => {
@@ -36,22 +24,10 @@ const Blog = ({ blog }) => {
   }
 
   return (
-    <div style={blogStyle} className="blog">
-      <div className="title-row">
-        {blog.title}{' '}
-        <button
-          className="view-btn"
-          style={hideWhenVisible}
-          onClick={toggleVisibility}
-        >
-          view
-        </button>
-        <button style={showWhenVisible} onClick={toggleVisibility}>
-          hide
-        </button>
-      </div>
+    <div className="blog">
+      <div className="title-row">{blog.title} </div>
 
-      <div style={showWhenVisible} className="detail-rows">
+      <div className="detail-rows">
         <div>{blog.url}</div>
         <div>
           likes {blog.likes}
