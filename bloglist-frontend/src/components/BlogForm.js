@@ -1,20 +1,23 @@
-import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { createBlog } from '../reducers/blogReducer'
+import { useField } from '../hooks'
 
-const BlogForm = ({ createBlog }) => {
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
+const BlogForm = () => {
+  const dispatch = useDispatch()
+  const titleInpute = useField('text')
+  const authorInput = useField('test')
+  const urlInput = useField('test')
 
   const addBlog = async (event) => {
     event.preventDefault()
-    createBlog({
-      title,
-      author,
-      url
-    })
-    setTitle('')
-    setAuthor('')
-    setUrl('')
+    dispatch(createBlog({
+      title: titleInpute.value,
+      author: authorInput.value,
+      url:urlInput.value
+    }))
+    titleInpute.reset()
+    authorInput.reset()
+    urlInput.reset()
   }
 
   return (
@@ -23,15 +26,15 @@ const BlogForm = ({ createBlog }) => {
 
       <form onSubmit={addBlog}>
         <div>
-          title:<input id='title' value={title} onChange={(event) => { setTitle(event.target.value) }} />
+          title:<input id='title' {...titleInpute.bindingAttrs} />
         </div>
 
         <div>
-          author:<input id='author' value={author} onChange={(event) => { setAuthor(event.target.value) }} />
+          author:<input id='author' {...authorInput.bindingAttrs} />
         </div>
 
         <div>
-          url:<input id='url' value={url} onChange={(event) => { setUrl(event.target.value) }} />
+          url:<input id='url' {...urlInput.bindingAttrs} />
         </div>
 
         <button type="submit" id='create-button'>create</button>
