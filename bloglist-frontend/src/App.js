@@ -20,9 +20,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs(blogs.sort(sortFn))
-    )
+    blogService.getAll().then((blogs) => setBlogs(blogs.sort(sortFn)))
   }, [])
 
   useEffect(() => {
@@ -46,7 +44,8 @@ const App = () => {
     event.preventDefault()
     try {
       const user = await loginService.login({
-        username, password,
+        username,
+        password,
       })
       window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user))
       blogService.setToken(user.token)
@@ -65,7 +64,10 @@ const App = () => {
     try {
       const returnedNote = await blogService.create(blogObject)
       setBlogs(blogs.concat(returnedNote))
-      showMessage(`a new blog ${blogObject.title}! by ${user.name} added`, 'success')
+      showMessage(
+        `a new blog ${blogObject.title}! by ${user.name} added`,
+        'success'
+      )
     } catch (exception) {
       showMessage(exception.response.data.error, 'error')
     }
@@ -75,7 +77,7 @@ const App = () => {
     const updatedBlog = await blogService.update({
       ...blog,
       likes: blog.likes + 1,
-      author: blog.user._id
+      author: blog.user._id,
     })
     blog.likes = updatedBlog.likes
     const newBlogs = Array.from(blogs).sort(sortFn)
@@ -85,7 +87,7 @@ const App = () => {
   const removeBlog = async (blog) => {
     if (window.confirm(`Remove blog ${blog.title}! by ${blog.author}`)) {
       await blogService.remove(blog)
-      setBlogs(blogs.filter(b => b.id !== blog.id))
+      setBlogs(blogs.filter((b) => b.id !== blog.id))
     }
   }
 
@@ -100,11 +102,13 @@ const App = () => {
         <h2>Log in to application</h2>
         <Notification message={message} type={messageType} />
         <Togglable buttonLabel="login">
-          <LoginForm username={username}
+          <LoginForm
+            username={username}
             password={password}
             handleUsernameChange={({ target }) => setUsername(target.value)}
             handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleSubmit={handleLogin} />
+            handleSubmit={handleLogin}
+          />
         </Togglable>
       </div>
     )
@@ -114,16 +118,22 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <Notification message={message} type={messageType} />
-      <div>{user.name} logged in<button onClick={onLogout}>logout</button></div>
-      <Togglable buttonLabel='new blog' ref={blogFormRef}>
+      <div>
+        {user.name} logged in<button onClick={onLogout}>logout</button>
+      </div>
+      <Togglable buttonLabel="new blog" ref={blogFormRef}>
         <BlogForm createBlog={addBlog} />
       </Togglable>
-      <div className='blog-rows'>
-        {
-          blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog} user={user} />
-          )
-        }
+      <div className="blog-rows">
+        {blogs.map((blog) => (
+          <Blog
+            key={blog.id}
+            blog={blog}
+            addLike={addLike}
+            removeBlog={removeBlog}
+            user={user}
+          />
+        ))}
       </div>
     </div>
   )
