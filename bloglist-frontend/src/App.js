@@ -1,4 +1,4 @@
-import { useEffect ,useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route, useMatch } from 'react-router-dom'
 
@@ -15,6 +15,7 @@ import BlogList from './components/BlogList'
 import Blog from './components/Blog'
 import Users from './components/Users'
 import User from './components/User'
+import { Page, Section } from './components-ui'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -25,12 +26,12 @@ const App = () => {
 
   const matchUser = useMatch('/users/:id')
   const user = matchUser
-    ? users.find(user => user.id === matchUser.params.id)
+    ? users.find((user) => user.id === matchUser.params.id)
     : null
 
-  const matchBlog= useMatch('/blogs/:id')
+  const matchBlog = useMatch('/blogs/:id')
   const blog = matchBlog
-    ? blogs.find(blog => blog.id === matchBlog.params.id)
+    ? blogs.find((blog) => blog.id === matchBlog.params.id)
     : null
 
   useEffect(() => {
@@ -43,37 +44,47 @@ const App = () => {
 
   if (loggedUser === null) {
     return (
-      <div>
-        <h2>Log in to application</h2>
+      <Page>
         <Notification />
-        <Togglable buttonLabel="login">
+        <Togglable buttonLabel="login" title="log in to application">
           <LoginForm />
         </Togglable>
-      </div>
+      </Page>
     )
   }
 
   return (
-    <div>
+    <Page>
       <h2>blogs</h2>
       <Notification />
-      <Navigation />
+      <Section>
+        <Navigation />
+      </Section>
       <Routes>
-        <Route path="/" element={
-          <>
-            <Togglable buttonLabel="new blog" ref={blogFormRef}>
-              <BlogForm toggleVisibility={() =>  blogFormRef.current.toggleVisibility()} />
-            </Togglable>
-            <BlogList />
-          </>
-        }>
-        </Route>
+        <Route
+          path="/"
+          element={
+            <Section>
+              <Togglable
+                buttonLabel="new blog"
+                ref={blogFormRef}
+                title="create new"
+              >
+                <BlogForm
+                  toggleVisibility={() =>
+                    blogFormRef.current.toggleVisibility()
+                  }
+                />
+              </Togglable>
+              <BlogList />
+            </Section>
+          }
+        ></Route>
         <Route path="/users" element={<Users />}></Route>
-        <Route path="/users/:id" element={<User user={user}/>}></Route>
-        <Route path="/blogs/:id" element={<Blog blog={blog}/>}></Route>
+        <Route path="/users/:id" element={<User user={user} />}></Route>
+        <Route path="/blogs/:id" element={<Blog blog={blog} />}></Route>
       </Routes>
-
-    </div>
+    </Page>
   )
 }
 

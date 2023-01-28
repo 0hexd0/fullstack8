@@ -1,7 +1,13 @@
 import { useDispatch } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
 import { useField } from '../hooks'
+import { Input, Button } from '../components-ui'
+import styled from 'styled-components'
 
+const Wrapper = styled.div`
+  border: 1px solid #ccc;
+  padding: 10px;
+`
 const BlogForm = ({ toggleVisibility }) => {
   const dispatch = useDispatch()
   const titleInpute = useField('text')
@@ -10,11 +16,13 @@ const BlogForm = ({ toggleVisibility }) => {
 
   const addBlog = async (event) => {
     event.preventDefault()
-    dispatch(createBlog({
-      title: titleInpute.value,
-      author: authorInput.value,
-      url:urlInput.value
-    }))
+    dispatch(
+      createBlog({
+        title: titleInpute.value,
+        author: authorInput.value,
+        url: urlInput.value,
+      })
+    )
     titleInpute.reset()
     authorInput.reset()
     urlInput.reset()
@@ -22,25 +30,28 @@ const BlogForm = ({ toggleVisibility }) => {
   }
 
   return (
-    <div>
-      <h2>create new</h2>
-
+    <Wrapper>
       <form onSubmit={addBlog}>
         <div>
-          title:<input id='title' {...titleInpute.bindingAttrs} />
+          title:
+          <Input id="title" {...titleInpute.bindingAttrs} />
         </div>
 
         <div>
-          author:<input id='author' {...authorInput.bindingAttrs} />
+          author:
+          <Input id="author" {...authorInput.bindingAttrs} />
         </div>
 
         <div>
-          url:<input id='url' {...urlInput.bindingAttrs} />
+          url:
+          <Input id="url" {...urlInput.bindingAttrs} />
         </div>
 
-        <button type="submit" id='create-button'>create</button>
+        <Button type="submit" id="create-button">
+          create
+        </Button>
       </form>
-    </div>
+    </Wrapper>
   )
 }
 
