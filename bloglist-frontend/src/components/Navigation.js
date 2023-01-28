@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { logout }  from '../reducers/loginReducer'
 
-const LoggedUser = () => {
+const Navigation = () => {
   const dispatch = useDispatch()
   const loggedUser = useSelector((state) => state.login)
 
@@ -11,9 +12,11 @@ const LoggedUser = () => {
 
   return (
     <div>
+      <Link to="/">blogs</Link>{' '}
+      <Link to="/users">users</Link>{' '}
       {loggedUser.name} logged in<button onClick={onLogout}>logout</button>
     </div>
   )
 }
 
-export default LoggedUser
+export default Navigation

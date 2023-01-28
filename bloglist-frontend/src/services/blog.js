@@ -37,6 +37,14 @@ const remove = async (blog) => {
   return response.data
 }
 
-const module = { getAll, create, update, remove, setToken }
+const addComment = async (blog, content) => {
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.post(`/api/blogs/${blog.id}/comments`, { content }, config)
+  return response.data
+}
+
+const module = { getAll, create, update, remove, setToken,  addComment }
 
 export default module

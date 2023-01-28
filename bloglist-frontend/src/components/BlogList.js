@@ -14,12 +14,10 @@ const BlogList = () => {
   }
 
   return (
-    <div className="blog-rows" >
+    <div className="blog-rows">
       {blogs.map((blog) => (
-        <div key={blog.id} style={blogStyle}>
-          <Link  to={`/blogs/${blog.id}`}>
-            {blog.title}
-          </Link>
+        <div key={blog.id} style={blogStyle} className="blog-row">
+          <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
         </div>
       ))}
     </div>

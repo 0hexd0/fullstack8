@@ -6,7 +6,7 @@ import { loginByLocalCache } from './reducers/loginReducer'
 import { initializeBlogs } from './reducers/blogReducer'
 import { initializeUsers } from './reducers/userReducer'
 
-import LoggedUser from './components/LoggedUser'
+import Navigation from './components/Navigation'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
@@ -57,7 +57,7 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <Notification />
-      <LoggedUser />
+      <Navigation />
       <Routes>
         <Route path="/" element={
           <>
